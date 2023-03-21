@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83fef3842bf43894b95dd6fb0d4aadab, type: 3}
+  m_Name: TileSpriteHolder
+  m_EditorClassIdentifier: 
+  spritesList:
+  - name: Blue
+    TileType: 5
+    defaultSprite: {fileID: 21300000, guid: e2dd1cdd9b7ab8d4b9773fc94c1b16ad, type: 3}
+    A: {fileID: 21300000, guid: 9b054d4bfc349a346b1f89661ee0a212, type: 3}
+    B: {fileID: 21300000, guid: f3e1da280b46b4f4cb4f4c52b3a3fb7f, type: 3}
+    C: {fileID: 21300000, guid: a36d29999913e5d4283b811c9ebd7bdf, type: 3}
+  - name: Green
+    TileType: 1
+    defaultSprite: {fileID: 21300000, guid: 7fe16675c4b6c7a47a1fbd78043e009a, type: 3}
+    A: {fileID: 21300000, guid: 96fdf705b61278d4db47e4f058270434, type: 3}
+    B: {fileID: 21300000, guid: 3839d3720cb4888498bef8468147b878, type: 3}
+    C: {fileID: 21300000, guid: 1299f9134e69bbf40a7d3f0d9e670adc, type: 3}
+  - name: Pink
+    TileType: 4
+    defaultSprite: {fileID: 21300000, guid: c4244b1b97f6f3840940f2f15e04b163, type: 3}
+    A: {fileID: 21300000, guid: 779c78ef4eb2efc4abd1e1c8389aee9e, type: 3}
+    B: {fileID: 21300000, guid: 48f49cc0fc92b174ca722cbf3e4bbf16, type: 3}
+    C: {fileID: 21300000, guid: 678644999ea023e4f9cd93b3bf78695e, type: 3}
+  - name: Purple
+    TileType: 3
+    defaultSprite: {fileID: 21300000, guid: 39dd8f6c12cbbe442b6a9fdf372d1d35, type: 3}
+    A: {fileID: 21300000, guid: e8fd4315eeb05964bb1853b3122f4fa3, type: 3}
+    B: {fileID: 21300000, guid: 01fc70005f36e064a8dbdf5743139106, type: 3}
+    C: {fileID: 21300000, guid: c24fbfb4a99dba441979a82d2ac7e7d5, type: 3}
+  - name: Red
+    TileType: 0
+    defaultSprite: {fileID: 21300000, guid: f4da7e8f31dce784db754416983d3a9b, type: 3}
+    A: {fileID: 21300000, guid: 5f53ca7d266df3c47a1b03a8f0a602ca, type: 3}
+    B: {fileID: 21300000, guid: 4afe784b3c8f9044aa80f8a0356918c7, type: 3}
+    C: {fileID: 21300000, guid: 32855cec633e725479df100a5cd327a5, type: 3}
+  - name: Yellow
+    TileType: 2
+    defaultSprite: {fileID: 21300000, guid: 2a08bd08f046f684b9f872f960ba0f65, type: 3}
+    A: {fileID: 21300000, guid: a674d7aa8408a054489c59e97a592438, type: 3}
+    B: {fileID: 21300000, guid: 935d4d08d497bdf438d2130d03dd8681, type: 3}
+    C: {fileID: 21300000, guid: b1c6c0eb5e70f3b4c9eeb45a9b0f4c42, type: 3}
