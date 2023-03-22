@@ -15,4 +15,9 @@ public static class Utilities
         newPos.y = newYPos;
         t.position = newPos;
     }
+
+    public static float GetTopOfScreenY(Camera cam)
+    {
+        return cam.ViewportToWorldPoint(Vector3.one).y;
+    }
 }

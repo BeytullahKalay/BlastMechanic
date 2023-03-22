@@ -7,10 +7,10 @@ public class Tile : MonoBehaviour, ISpawnable, IDestroyable
     [SerializeField] private TileSpriteHolder tileSpriteHolder;
 
     public TileVal TileVal;
-
-    public SpriteRenderer SpriteRenderer { get; private set; }
     private TileGridLayout _tileGridLayout;
-
+    
+    public SpriteRenderer SpriteRenderer { get; private set; }
+    
     private void Awake()
     {
         _tileGridLayout = TileGridLayout.Instance;
