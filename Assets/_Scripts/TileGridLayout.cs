@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -10,9 +9,9 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
     [SerializeField] private GameObject tilePrefab;
     public Tile[,] Grid;
 
-    [Header("Start Animation Values")] [SerializeField]
-    private float timeBetweenSpawns = .15f;
-
+    [Header("Start Animation Values")]
+    [SerializeField] private float timeBetweenSpawns = .15f;
+    [SerializeField] private float timeBetweenSingleSpawns = .15f;
     [SerializeField] private float startYPosition = 2f;
     [SerializeField] private float columnFallSpeed = 12f;
     [SerializeField] private Ease ease;
@@ -39,10 +38,10 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
 
     private void SetupScene()
     {
-        StartCoroutine(Setup(timeBetweenSpawns));
+        StartCoroutine(SetupCO(timeBetweenSpawns));
     }
 
-    private IEnumerator Setup(float timeBetweenSpawns)
+    private IEnumerator SetupCO(float timeBetweenSpawns)
     {
         _gameManager.SpawnerStates = SpawnerStates.OnSpawn;
 
@@ -124,10 +123,30 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
                 if (emptySpacesUnderTile > 0)
                 {
                     var block = Grid[x, y];
-                    block.SetGridPosition(x, y - emptySpacesUnderTile,true);
+                    block.SetGridPosition(x, y - emptySpacesUnderTile, true);
                     Grid[x, y - emptySpacesUnderTile] = block;
                     Grid[x, y] = null;
                 }
+            }
+        }
+
+        StartCoroutine(Refill(timeBetweenSingleSpawns));
+    }
+
+    private IEnumerator Refill(float timeBetweenSpawns)
+    {
+        for (var y = 0; y < gridY; y++)
+        {
+            for (var x = 0; x < gridX; x++)
+            {
+                if (Grid[x, y] != null) continue;
+
+                var tileGameObject = Instantiate(tilePrefab, new Vector2(x, gridY + startYPosition), Quaternion.identity);
+                var tileScript = tileGameObject.GetComponent<Tile>();
+                tileScript.SetGridPosition(x, y, true);
+                Grid[x, y] = tileScript;
+
+                yield return new WaitForSeconds(timeBetweenSpawns);
             }
         }
     }
