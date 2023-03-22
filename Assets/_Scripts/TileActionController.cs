@@ -27,18 +27,19 @@ public class TileActionController : MonoBehaviour
         {
             var destructArea = _tileGridLayout.Grid[clickedTile.x, clickedTile.y].GetDestructArea();
 
-            if (destructArea.Count < 2)
-            {
-                return;
-            }
+            if (destructArea.Count < 2) return;
 
             foreach (var t in destructArea)
             {
                 t.Destroy();
             }
             
+            _tileGridLayout.RefillTileGrid();
+            
         }
     }
+
+
 
 
 }

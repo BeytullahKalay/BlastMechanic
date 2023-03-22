@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -9,11 +10,15 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
     [SerializeField] private GameObject tilePrefab;
     public Tile[,] Grid;
 
-    [Header("Start Animation Values")]
-    [SerializeField] private float timeBetweenSpawns = .15f;
+    [Header("Start Animation Values")] [SerializeField]
+    private float timeBetweenSpawns = .15f;
+
     [SerializeField] private float startYPosition = 2f;
     [SerializeField] private float columnFallSpeed = 12f;
     [SerializeField] private Ease ease;
+
+    [Header("Gizmo")] [SerializeField] private bool drawGizmos;
+
 
     private GameManager _gameManager;
 
@@ -60,7 +65,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
 
             column.transform.DOMoveY(y, columnFallSpeed).SetSpeedBased().SetEase(ease).OnComplete(() =>
             {
-                column.transform.DOMoveY(column.transform.position.y - .1f, .04f).SetLoops(2, LoopType.Yoyo);
+                column.transform.DOMoveY(column.transform.position.y + .15f, .05f).SetLoops(2, LoopType.Yoyo);
             });
 
             yield return new WaitForSeconds(timeBetweenSpawns);
@@ -69,36 +74,80 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
         _gameManager.SpawnerStates = SpawnerStates.Wait;
     }
 
-
     public List<Tile> GetNeighbourOf(Vector2Int pos)
     {
         var neighbours = new List<Tile>();
 
         // right
-        if (pos.x + 1 < gridX)
+        if (pos.x + 1 < gridX && Grid[pos.x + 1, pos.y] != null)
         {
             neighbours.Add(Grid[pos.x + 1, pos.y]);
         }
-        
+
         // left
-        if (pos.x - 1 >= 0)
+        if (pos.x - 1 >= 0 && Grid[pos.x - 1, pos.y] != null)
         {
             neighbours.Add(Grid[pos.x - 1, pos.y]);
         }
-        
+
         // above
-        if (pos.y + 1 < gridY)
+        if (pos.y + 1 < gridY && Grid[pos.x, pos.y + 1] != null)
         {
             neighbours.Add(Grid[pos.x, pos.y + 1]);
         }
-        
+
         // below
-        if ( pos.y - 1  >= 0)
+        if (pos.y - 1 >= 0 && Grid[pos.x, pos.y - 1] != null)
         {
             neighbours.Add(Grid[pos.x, pos.y - 1]);
         }
 
         return neighbours;
+    }
 
+    public void RefillTileGrid()
+    {
+        for (var x = 0; x < gridX; x++)
+        {
+            for (var y = 0; y < gridY; y++)
+            {
+                if (Grid[x, y] == null) continue;
+
+                var emptySpacesUnderTile = 0;
+
+                for (var checkIndex = y; checkIndex >= 0; checkIndex--)
+                {
+                    if (Grid[x, checkIndex] == null) emptySpacesUnderTile++;
+                }
+
+
+                if (emptySpacesUnderTile > 0)
+                {
+                    var block = Grid[x, y];
+                    block.SetGridPosition(x, y - emptySpacesUnderTile,true);
+                    Grid[x, y - emptySpacesUnderTile] = block;
+                    Grid[x, y] = null;
+                }
+            }
+        }
+    }
+
+    public void DeleteTileFromGrid(Vector2Int gridCoord)
+    {
+        Grid[gridCoord.x, gridCoord.y] = null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!drawGizmos) return;
+
+        for (int x = 0; x < gridX; x++)
+        {
+            for (int y = 0; y < gridY; y++)
+            {
+                Gizmos.color = Grid[x, y] == null ? Color.red : Color.white;
+                Gizmos.DrawCube(new Vector3(x, y, 0), Vector3.one * .9f);
+            }
+        }
     }
 }
