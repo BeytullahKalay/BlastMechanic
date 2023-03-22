@@ -2,8 +2,8 @@
 
 public enum SpawnerStates
 {
-    Wait,
-    OnSpawn
+    Playable,
+    OnAnimation
 }
 
 public enum TileType

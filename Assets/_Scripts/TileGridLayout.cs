@@ -42,7 +42,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
 
     private IEnumerator SetupCO(float timeBetweenSpawns)
     {
-        _gameManager.SpawnerStates = SpawnerStates.OnSpawn;
+        _gameManager.SpawnerStates = SpawnerStates.OnAnimation;
 
         for (var y = 0; y < gridY; y++)
         {
@@ -71,7 +71,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
             yield return new WaitForSeconds(timeBetweenSpawns);
         }
 
-        _gameManager.SpawnerStates = SpawnerStates.Wait;
+        _gameManager.SpawnerStates = SpawnerStates.Playable;
     }
 
     public void RefillTileGrid()

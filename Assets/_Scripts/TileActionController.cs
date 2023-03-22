@@ -23,7 +23,7 @@ public class TileActionController : MonoBehaviour
 
     private void TileClicked(Vector2Int clickedTile)
     {
-        if (_gameManager.SpawnerStates == SpawnerStates.Wait)
+        if (_gameManager.SpawnerStates == SpawnerStates.Playable)
         {
             var destructArea = _tileGridLayout.Grid[clickedTile.x, clickedTile.y].GetDestructArea();
 
