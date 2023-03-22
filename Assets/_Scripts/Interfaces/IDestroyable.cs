@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public interface IDestroyable
 {
-    public List<IDestroyable> GetDestructArea();
+    public List<Tile> GetDestructArea();
 
     public void Destroy();
 }

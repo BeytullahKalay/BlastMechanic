@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -9,27 +8,19 @@ public class Tile : MonoBehaviour, ISpawnable, IDestroyable
 
     public TileVal TileVal;
 
-    private SpriteRenderer _spriteRenderer;
+    public SpriteRenderer SpriteRenderer { get; private set; }
     private TileGridLayout _tileGridLayout;
 
     private void Awake()
     {
         _tileGridLayout = TileGridLayout.Instance;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        TileVal = new TileVal(_spriteRenderer, tileSpriteHolder.GetRandomTileSprites(), gameObject);
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        TileVal = new TileVal(SpriteRenderer, tileSpriteHolder.GetRandomTileSprites(), gameObject);
     }
 
-    public void SetGridPosition(int x, int y,bool playPositioningAnimation = false)
+    public void SetGridPosition(int x, int y, bool playPositioningAnimation = false)
     {
-        TileVal.SetGridPosition(x, y,playPositioningAnimation);
-    }
-
-    public void PlayTilePositioningAnimation(Vector2Int newPos)
-    {
-        transform.DOMoveY(newPos.y, 10).SetSpeedBased().SetEase(Ease.InQuad).OnComplete(() =>
-        {
-            transform.DOMoveY(transform.position.y + .15f, .065f).SetLoops(2, LoopType.Yoyo);
-        });
+        TileVal.SetGridPosition(x, y, playPositioningAnimation);
     }
 
     private void OnMouseDown()
@@ -42,22 +33,21 @@ public class Tile : MonoBehaviour, ISpawnable, IDestroyable
         EventManager.TileClicked?.Invoke(TileVal.GridPosition);
     }
 
-    public List<IDestroyable> GetDestructArea()
+    public List<Tile> GetDestructArea()
     {
-        var destructArea = new List<IDestroyable>();
+        var destructArea = new List<Tile>();
         var checkQue = new Queue<Tile>();
         checkQue.Enqueue(this);
+        destructArea.Add(this);
 
         while (checkQue.Count > 0)
         {
             var checkTile = checkQue.Dequeue();
-            destructArea.Add(checkTile);
             var neighbours = GetNeighbours(checkTile.TileVal.GridPosition);
 
             foreach (var neighbour in neighbours)
             {
                 if (destructArea.Contains(neighbour)) continue;
-
                 destructArea.Add(neighbour);
                 checkQue.Enqueue(neighbour);
             }

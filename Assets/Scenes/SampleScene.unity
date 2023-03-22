@@ -352,6 +352,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &862295555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 862295557}
+  - component: {fileID: 862295556}
+  m_Layer: 0
+  m_Name: SpriteChangerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &862295556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862295555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c838d1aee341724e9cd5f1bd525040a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileSpriteHolder: {fileID: 11400000, guid: f5f0319ed7a8a9946accef00e81ffb42, type: 2}
+--- !u!4 &862295557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862295555}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1129370449
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c725d1ed1c79504785cf657632e783c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridX: 10
+  gridX: 5
   gridY: 10
   tilePrefab: {fileID: 4929073597715599317, guid: 75842fb40bcd53e47b54542ff3067725, type: 3}
   timeBetweenSpawns: 0.15

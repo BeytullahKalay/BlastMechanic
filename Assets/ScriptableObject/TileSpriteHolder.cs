@@ -10,4 +10,18 @@ public class TileSpriteHolder : ScriptableObject
     {
         return spritesList[Random.Range(0, spritesList.Count)];
     }
+
+    public TileSprites GetTileSprite(TileType searchTileType)
+    {
+        foreach (var spriteTile in spritesList)
+        {
+            if (spriteTile.TileType == searchTileType)
+            {
+                return spriteTile;
+            }
+        }
+
+        Debug.LogError("Search Type could not find");
+        return null;
+    }
 }

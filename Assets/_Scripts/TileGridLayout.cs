@@ -60,8 +60,8 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
                 var tileScript = tileGameObject.GetComponent<Tile>();
                 tileScript.SetGridPosition(x, y);
                 Grid[x, y] = tileScript;
+                EventManager.UpdateTileSpritesOf?.Invoke(tileScript.GetDestructArea());
             }
-
             column.transform.DOMoveY(y, columnFallSpeed).SetSpeedBased().SetEase(ease).OnComplete(() =>
             {
                 column.transform.DOMoveY(column.transform.position.y + .15f, .05f).SetLoops(2, LoopType.Yoyo);
@@ -140,13 +140,12 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
             for (var x = 0; x < gridX; x++)
             {
                 if (Grid[x, y] != null) continue;
-
                 var tileGameObject = Instantiate(tilePrefab, new Vector2(x, gridY + startYPosition), Quaternion.identity);
                 var tileScript = tileGameObject.GetComponent<Tile>();
                 tileScript.SetGridPosition(x, y, true);
                 Grid[x, y] = tileScript;
-
                 yield return new WaitForSeconds(timeBetweenSpawns);
+                EventManager.UpdateAllTileSprites?.Invoke();
             }
         }
     }
