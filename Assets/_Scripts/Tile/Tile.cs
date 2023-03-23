@@ -15,7 +15,7 @@ public class Tile : MonoBehaviour, ISpawnable, IDestroyable
     {
         _tileGridLayout = TileGridLayout.Instance;
         SpriteRenderer = GetComponent<SpriteRenderer>();
-        TileVal = new TileVal(SpriteRenderer, tileSpriteHolder.GetRandomTileSprites(), gameObject);
+        TileVal = new TileVal(SpriteRenderer, tileSpriteHolder, gameObject);
     }
 
     public void SetGridPosition(int x, int y, bool playPositioningAnimation = false)
@@ -58,8 +58,8 @@ public class Tile : MonoBehaviour, ISpawnable, IDestroyable
 
     public void Destroy()
     {
-        _tileGridLayout.DeleteTileFromGrid(TileVal.GridPosition);
-        Destroy(gameObject);
+        _tileGridLayout.SetGridNull(TileVal.GridPosition);
+        Pooler.Instance.TilePool.Release(gameObject);
     }
 
     private List<Tile> GetNeighbours(Vector2Int tilePos)

@@ -8,20 +8,28 @@ public struct TileVal
     
     private SpriteRenderer _spriteRenderer;
     private GameObject _object;
+    private TileSpriteHolder _tileSpriteHolder;
     
     public TileType TileType { get; private set; }
 
-    public TileVal(SpriteRenderer spriteRenderer,TileSprites tileSprites,GameObject gameObject,Vector2Int gridPosition = default)
+    public TileVal(SpriteRenderer spriteRenderer,TileSpriteHolder tileSpriteHolder,GameObject gameObject,Vector2Int gridPosition = default)
     {
         GridPosition = gridPosition;
         _spriteRenderer = spriteRenderer;
         _object = gameObject;
-        TileType = tileSprites.TileType;
+        _tileSpriteHolder = tileSpriteHolder;
+        TileType = TileType.Blue;
         
-        
-        spriteRenderer.sprite = tileSprites.DefaultSprite;
-        spriteRenderer.sortingOrder = GridPosition.y;
-        gameObject.name = $"({GridPosition.x},{GridPosition.y})";
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        var tileSprite = _tileSpriteHolder.GetRandomTileSprites();
+        TileType = tileSprite.TileType;
+        _spriteRenderer.sprite = tileSprite.DefaultSprite;
+        _spriteRenderer.sortingOrder = GridPosition.y;
+        _object.name = $"({GridPosition.x},{GridPosition.y})";
     }
 
     public void SetGridPosition(int x, int y,bool playAnimation)
