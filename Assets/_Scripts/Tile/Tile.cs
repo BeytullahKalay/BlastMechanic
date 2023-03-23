@@ -7,13 +7,17 @@ public class Tile : MonoBehaviour, ISpawnable, IDestroyable
     [SerializeField] private TileSpriteHolder tileSpriteHolder;
 
     public TileVal TileVal;
+    
     private TileGridLayout _tileGridLayout;
+
+    private Pooler _pooler;
     
     public SpriteRenderer SpriteRenderer { get; private set; }
     
     private void Awake()
     {
         _tileGridLayout = TileGridLayout.Instance;
+        _pooler = Pooler.Instance;
         SpriteRenderer = GetComponent<SpriteRenderer>();
         TileVal = new TileVal(SpriteRenderer, tileSpriteHolder, gameObject);
     }
@@ -59,7 +63,7 @@ public class Tile : MonoBehaviour, ISpawnable, IDestroyable
     public void Destroy()
     {
         _tileGridLayout.SetGridNull(TileVal.GridPosition);
-        Pooler.Instance.TilePool.Release(gameObject);
+        _pooler.TilePool.Release(gameObject);
     }
 
     private List<Tile> GetNeighbours(Vector2Int tilePos)

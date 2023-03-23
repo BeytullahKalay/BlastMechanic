@@ -41,6 +41,7 @@ public class Shuffle : MonoBehaviour
 
                 grid[x, y] = tile;
                 tile.TileVal.SetGridPosition(x, y, false);
+                tile.TileVal.Tween.Kill();
                 tile.transform.DOMove(new Vector3(x, y, 0), animationDuration).SetEase(Ease.InOutBack)
                     .OnComplete(() => { _gm.SpawnerStates = SpawnerStates.Playable; });
 

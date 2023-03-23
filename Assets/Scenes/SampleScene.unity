@@ -689,9 +689,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridX: 10
   gridY: 10
-  tilePrefab: {fileID: 4929073597715599317, guid: 75842fb40bcd53e47b54542ff3067725, type: 3}
   timeBetweenSpawns: 0.15
-  timeBetweenSingleSpawns: 0.1
+  timeBetweenSingleSpawns: 0.05
   startYPosition: 1
   columnFallSpeed: 12
   ease: 5

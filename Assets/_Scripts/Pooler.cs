@@ -21,6 +21,6 @@ public class Pooler : MonoSingleton<Pooler>
         }, block =>
         {
             Destroy(block.gameObject);
-        }, false, 100,500);
+        }, false, 100,700);
     }
 }

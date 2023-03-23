@@ -57,12 +57,12 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
                 var tileGameObject = _pooler.TilePool.Get();
                 tileGameObject.transform.position = new Vector2(x, y);
                 tileGameObject.transform.SetParent(column.transform);
-                
+
                 Utilities.SetLocalPositionY(tileGameObject.transform);
                 var tileScript = tileGameObject.GetComponent<Tile>();
                 tileScript.SetGridPosition(x, y);
                 Grid[x, y] = tileScript;
-                
+
                 EventManager.UpdateTileSpritesOf?.Invoke(tileScript.GetDestructArea());
             }
 
@@ -91,7 +91,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
                 {
                     if (Grid[x, checkIndex] == null) emptySpacesUnderTile++;
                 }
-                
+
                 if (emptySpacesUnderTile > 0)
                 {
                     var block = Grid[x, y];
@@ -112,16 +112,18 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
             for (var x = 0; x < gridX; x++)
             {
                 if (Grid[x, y] != null) continue;
-                var spawnPosition = Utilities.GetTopOfScreenY(_camera) + startYPosition;
                 
+                var spawnPosition = Utilities.GetTopOfScreenY(_camera) + startYPosition;
                 var tileGameObject = _pooler.TilePool.Get();
                 tileGameObject.transform.position = new Vector2(x, spawnPosition);
                 tileGameObject.transform.SetParent(transform);
-                
+
                 var tileScript = tileGameObject.GetComponent<Tile>();
                 tileScript.SetGridPosition(x, y, true);
                 Grid[x, y] = tileScript;
+
                 yield return new WaitForSeconds(timeBetweenSpawns);
+
                 EventManager.UpdateAllTileSprites?.Invoke();
             }
         }
