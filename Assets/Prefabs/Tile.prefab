@@ -111,4 +111,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae83717a2e6377b43905564bbab1afa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileSpriteHolder: {fileID: 11400000, guid: f5f0319ed7a8a9946accef00e81ffb42, type: 2}
+  classicBlockSpriteHolder: {fileID: 11400000, guid: f5f0319ed7a8a9946accef00e81ffb42, type: 2}

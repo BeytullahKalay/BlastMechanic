@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface ITile: IDestroyable
 {
-    public TileData TileData { get; set; }
+    public TileBase TileBase { get; set; }
     public SpriteRenderer SpriteRenderer { get; set; }
     public Transform TileTransform { get; set; }
 

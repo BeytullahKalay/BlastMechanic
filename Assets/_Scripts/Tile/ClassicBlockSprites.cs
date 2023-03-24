@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class TileSprites
+public class ClassicBlockSprites
 {
     public string name;
     public TileType TileType;

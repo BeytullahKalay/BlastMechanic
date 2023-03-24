@@ -4,9 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
 {
-    [SerializeField] private TileSpriteHolder tileSpriteHolder;
+    [SerializeField] private ClassicBlockSpriteHolder classicBlockSpriteHolder;
 
-    public TileData TileData { get; set; }
+    public TileBase TileBase { get; set; }
     
     private TileGridLayout _tileGridLayout;
 
@@ -21,13 +21,13 @@ public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
         _pooler = Pooler.Instance;
         SpriteRenderer = GetComponent<SpriteRenderer>();
         TileTransform = transform;
-        TileData = new TileData(SpriteRenderer, tileSpriteHolder, gameObject);
+        TileBase = new ClassicBlockTile(SpriteRenderer, classicBlockSpriteHolder, gameObject);
     }
 
 
     public void SetGridPosition(int x, int y, bool playPositioningAnimation = false)
     {
-        TileData.SetGridPosition(x, y, playPositioningAnimation);
+        TileBase.SetGridPosition(x, y, playPositioningAnimation);
     }
 
     private void OnMouseDown()
@@ -37,7 +37,7 @@ public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
 
     public void AttemptToDestroyObject()
     {
-        EventManager.TileClicked?.Invoke(TileData.GridPosition);
+        EventManager.TileClicked?.Invoke(TileBase.GridPosition);
     }
 
     public List<ITile> GetDestructArea()
@@ -52,7 +52,7 @@ public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
         {
             var checkTile = checkQue.Dequeue();
             
-            var neighbours = GetNeighbours(checkTile.TileData.GridPosition);
+            var neighbours = GetNeighbours(checkTile.TileBase.GridPosition);
 
             foreach (var neighbour in neighbours)
             {
@@ -67,7 +67,7 @@ public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
 
     public void Destroy()
     {
-        _tileGridLayout.SetGridNull(TileData.GridPosition);
+        _tileGridLayout.SetGridNull(TileBase.GridPosition);
         _pooler.TilePool.Release(gameObject);
     }
 
@@ -79,12 +79,28 @@ public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
 
         foreach (var neighbour in allNeighbours)
         {
-            if (neighbour.TileData.TileType == TileData.TileType)
+            if (neighbour.TileBase.TileType == TileBase.TileType)
             {
                 tileNeighbours.Add(neighbour);
             }
         }
 
         return tileNeighbours;
+    }
+
+    public void OnSpawn(Vector2Int spawnPosition, Transform parent)
+    {
+        transform.position = new Vector3(spawnPosition.x, spawnPosition.y, 0);
+        transform.SetParent(parent);
+        SetGridPosition(spawnPosition.x, spawnPosition.y);
+        _tileGridLayout.Grid[spawnPosition.x,spawnPosition.y] = this;
+    }
+
+    public void OnSpawn(Vector2 spawnPosition, Vector2Int movePosition, Transform parent)
+    {
+        transform.position = spawnPosition;
+        transform.SetParent(parent);
+        SetGridPosition(movePosition.x,movePosition.y,true);
+        _tileGridLayout.Grid[movePosition.x,movePosition.y] = this;
     }
 }

@@ -77,6 +77,6 @@ public class TileActionController : MonoBehaviour
         
         mySequence.Join(t.TileTransform.DOPunchScale(Vector3.one, mergeAnimationValuesHolder.Duration, 2));
         
-        await mySequence.OnComplete(() => { t.Destroy(); }).AsyncWaitForCompletion();
+        await mySequence.OnComplete(t.Destroy).AsyncWaitForCompletion();
     }
 }

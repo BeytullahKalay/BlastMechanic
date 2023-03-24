@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/TileSpriteHolder")]
-public class TileSpriteHolder : ScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObjects/ClassicBlockSpriteHolder")]
+public class ClassicBlockSpriteHolder : ScriptableObject
 {
-    public List<TileSprites> spritesList = new List<TileSprites>();
+    public List<ClassicBlockSprites> spritesList = new List<ClassicBlockSprites>();
 
-    public TileSprites GetRandomTileSprites()
+    public ClassicBlockSprites GetRandomTileSprites()
     {
         return spritesList[Random.Range(0, spritesList.Count)];
     }
 
-    public TileSprites GetTileSprite(TileType searchTileType)
+    public ClassicBlockSprites GetTileSprite(TileType searchTileType)
     {
         foreach (var spriteTile in spritesList)
         {
@@ -20,8 +20,6 @@ public class TileSpriteHolder : ScriptableObject
                 return spriteTile;
             }
         }
-
-        Debug.LogError("Search Type could not find");
         return null;
     }
 }

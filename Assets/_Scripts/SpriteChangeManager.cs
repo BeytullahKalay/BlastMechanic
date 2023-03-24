@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SpriteChangeManager : MonoBehaviour
 {
-    [SerializeField] private TileSpriteHolder tileSpriteHolder;
+    [SerializeField] private ClassicBlockSpriteHolder classicBlockSpriteHolder;
 
 
     private TileGridLayout _tileGridLayout;
@@ -28,7 +28,7 @@ public class SpriteChangeManager : MonoBehaviour
 
     private void UpdateSpritesOf(List<ITile> neighbourList)
     {
-        var tileSprite = tileSpriteHolder.GetTileSprite(neighbourList[0].TileData.TileType);
+        var tileSprite = classicBlockSpriteHolder.GetTileSprite(neighbourList[0].TileBase.TileType);
         var s = FindSprite(tileSprite, neighbourList.Count);
 
         foreach (var tile in neighbourList)
@@ -46,7 +46,7 @@ public class SpriteChangeManager : MonoBehaviour
             {
                 if (_tileGridLayout.Grid[x, y] == null) continue;
                 var neighbours = _tileGridLayout.Grid[x, y].GetDestructArea();
-                var tileSprite = tileSpriteHolder.GetTileSprite(neighbours[0].TileData.TileType);
+                var tileSprite = classicBlockSpriteHolder.GetTileSprite(neighbours[0].TileBase.TileType);
                 var s = FindSprite(tileSprite, neighbours.Count);
 
                 foreach (var neighbour in neighbours)
@@ -57,23 +57,23 @@ public class SpriteChangeManager : MonoBehaviour
         }
     }
 
-    private static Sprite FindSprite(TileSprites tileSprite, int count)
+    private static Sprite FindSprite(ClassicBlockSprites classicBlockSprite, int count)
     {
-        var s = tileSprite.DefaultSprite;
+        var s = classicBlockSprite.DefaultSprite;
 
         switch (count)
         {
             case >= 9:
                 //sprite C
-                s = tileSprite.SpriteC;
+                s = classicBlockSprite.SpriteC;
                 break;
             case >= 7:
                 //sprite B
-                s = tileSprite.SpriteB;
+                s = classicBlockSprite.SpriteB;
                 break;
             case >= 4:
                 //sprite A
-                s = tileSprite.SpriteA;
+                s = classicBlockSprite.SpriteA;
                 break;
         }
 
