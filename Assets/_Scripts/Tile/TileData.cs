@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public struct TileVal
+public class TileData
 {
     public Vector2Int GridPosition;
 
@@ -12,7 +12,7 @@ public struct TileVal
     public TileType TileType { get; private set; }
     public Tween Tween { get; set; }
 
-    public TileVal(SpriteRenderer spriteRenderer, TileSpriteHolder tileSpriteHolder, GameObject gameObject,
+    public TileData(SpriteRenderer spriteRenderer, TileSpriteHolder tileSpriteHolder, GameObject gameObject,
         Vector2Int gridPosition = default)
     {
         GridPosition = gridPosition;
@@ -46,7 +46,7 @@ public struct TileVal
         if (playAnimation)
         {
             Tween?.Kill();
-            Tween = obj.transform.DOMoveY(y, 10).SetSpeedBased().SetEase(Ease.InQuad).OnComplete(() =>
+            Tween = obj.transform.DOMoveY(y, 13).SetSpeedBased().SetEase(Ease.InQuad).OnComplete(() =>
             {
                 obj.transform.DOMoveY(obj.transform.position.y + .15f, .065f).SetLoops(2, LoopType.Yoyo);
             });

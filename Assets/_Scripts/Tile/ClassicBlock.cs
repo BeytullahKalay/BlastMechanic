@@ -2,29 +2,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class Tile : MonoBehaviour, ISpawnable, IDestroyable
+public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
 {
     [SerializeField] private TileSpriteHolder tileSpriteHolder;
 
-    public TileVal TileVal;
+    public TileData TileData { get; set; }
     
     private TileGridLayout _tileGridLayout;
 
     private Pooler _pooler;
     
-    public SpriteRenderer SpriteRenderer { get; private set; }
-    
+    public SpriteRenderer SpriteRenderer { get; set; }
+    public Transform TileTransform { get; set; }
+
     private void Awake()
     {
         _tileGridLayout = TileGridLayout.Instance;
         _pooler = Pooler.Instance;
         SpriteRenderer = GetComponent<SpriteRenderer>();
-        TileVal = new TileVal(SpriteRenderer, tileSpriteHolder, gameObject);
+        TileTransform = transform;
+        TileData = new TileData(SpriteRenderer, tileSpriteHolder, gameObject);
     }
+
 
     public void SetGridPosition(int x, int y, bool playPositioningAnimation = false)
     {
-        TileVal.SetGridPosition(x, y, playPositioningAnimation);
+        TileData.SetGridPosition(x, y, playPositioningAnimation);
     }
 
     private void OnMouseDown()
@@ -34,20 +37,22 @@ public class Tile : MonoBehaviour, ISpawnable, IDestroyable
 
     public void AttemptToDestroyObject()
     {
-        EventManager.TileClicked?.Invoke(TileVal.GridPosition);
+        EventManager.TileClicked?.Invoke(TileData.GridPosition);
     }
 
-    public List<Tile> GetDestructArea()
+    public List<ITile> GetDestructArea()
     {
-        var destructArea = new List<Tile>();
-        var checkQue = new Queue<Tile>();
+        var destructArea = new List<ITile>();
+        var checkQue = new Queue<ITile>();
         checkQue.Enqueue(this);
         destructArea.Add(this);
+        
 
         while (checkQue.Count > 0)
         {
             var checkTile = checkQue.Dequeue();
-            var neighbours = GetNeighbours(checkTile.TileVal.GridPosition);
+            
+            var neighbours = GetNeighbours(checkTile.TileData.GridPosition);
 
             foreach (var neighbour in neighbours)
             {
@@ -56,24 +61,25 @@ public class Tile : MonoBehaviour, ISpawnable, IDestroyable
                 checkQue.Enqueue(neighbour);
             }
         }
-
+        
         return destructArea;
     }
 
     public void Destroy()
     {
-        _tileGridLayout.SetGridNull(TileVal.GridPosition);
+        _tileGridLayout.SetGridNull(TileData.GridPosition);
         _pooler.TilePool.Release(gameObject);
     }
 
-    private List<Tile> GetNeighbours(Vector2Int tilePos)
+    private List<ITile> GetNeighbours(Vector2Int tilePos)
     {
         var allNeighbours = _tileGridLayout.GetNeighbourOf(tilePos);
-        var tileNeighbours = new List<Tile>();
+        
+        var tileNeighbours = new List<ITile>();
 
         foreach (var neighbour in allNeighbours)
         {
-            if (neighbour.TileVal.TileType == TileVal.TileType)
+            if (neighbour.TileData.TileType == TileData.TileType)
             {
                 tileNeighbours.Add(neighbour);
             }

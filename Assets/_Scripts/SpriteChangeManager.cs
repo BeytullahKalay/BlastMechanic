@@ -26,9 +26,9 @@ public class SpriteChangeManager : MonoBehaviour
         EventManager.UpdateAllTileSprites -= UpdateAllTileSprites;
     }
 
-    private void UpdateSpritesOf(List<Tile> neighbourList)
+    private void UpdateSpritesOf(List<ITile> neighbourList)
     {
-        var tileSprite = tileSpriteHolder.GetTileSprite(neighbourList[0].TileVal.TileType);
+        var tileSprite = tileSpriteHolder.GetTileSprite(neighbourList[0].TileData.TileType);
         var s = FindSprite(tileSprite, neighbourList.Count);
 
         foreach (var tile in neighbourList)
@@ -46,7 +46,7 @@ public class SpriteChangeManager : MonoBehaviour
             {
                 if (_tileGridLayout.Grid[x, y] == null) continue;
                 var neighbours = _tileGridLayout.Grid[x, y].GetDestructArea();
-                var tileSprite = tileSpriteHolder.GetTileSprite(neighbours[0].TileVal.TileType);
+                var tileSprite = tileSpriteHolder.GetTileSprite(neighbours[0].TileData.TileType);
                 var s = FindSprite(tileSprite, neighbours.Count);
 
                 foreach (var neighbour in neighbours)

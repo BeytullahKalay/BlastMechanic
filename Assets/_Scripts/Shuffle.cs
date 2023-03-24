@@ -20,7 +20,7 @@ public class Shuffle : MonoBehaviour
         
         _gm.SpawnerStates = SpawnerStates.OnAnimation;
 
-        var allTiles = new List<Tile>();
+        var allTiles = new List<ITile>();
         var grid = _tileGridLayout.Grid;
 
         for (var x = 0; x < grid.GetLength(0); x++)
@@ -40,12 +40,12 @@ public class Shuffle : MonoBehaviour
                 allTiles.Remove(tile);
 
                 grid[x, y] = tile;
-                tile.TileVal.SetGridPosition(x, y, false);
-                tile.TileVal.Tween.Kill();
-                tile.transform.DOMove(new Vector3(x, y, 0), animationDuration).SetEase(Ease.InOutBack)
+                tile.TileData.SetGridPosition(x, y, false);
+                tile.TileData.Tween.Kill();
+                tile.TileTransform.DOMove(new Vector3(x, y, 0), animationDuration).SetEase(Ease.InOutBack)
                     .OnComplete(() => { _gm.SpawnerStates = SpawnerStates.Playable; });
 
-                tile.transform.DOShakeRotation(animationDuration * 1.5f,Vector3.forward * 20,20,100);
+                tile.TileTransform.DOShakeRotation(animationDuration * 1.5f,Vector3.forward * 20,20,100);
             }
         }
 

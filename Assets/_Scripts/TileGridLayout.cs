@@ -6,7 +6,7 @@ using UnityEngine;
 public class TileGridLayout : MonoSingleton<TileGridLayout>
 {
     [SerializeField] private int gridX, gridY;
-    public Tile[,] Grid;
+    public ITile[,] Grid;
 
     [Header("Start Animation Values")]
     [SerializeField] private float timeBetweenSpawns = .15f;
@@ -30,7 +30,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
         _pooler = Pooler.Instance;
 
         // initialize grid layout
-        Grid = new Tile[gridX, gridY];
+        Grid = new ClassicBlock[gridX, gridY];
 
         SetupScene();
     }
@@ -59,7 +59,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
                 tileGameObject.transform.SetParent(column.transform);
 
                 Utilities.SetLocalPositionY(tileGameObject.transform);
-                var tileScript = tileGameObject.GetComponent<Tile>();
+                var tileScript = tileGameObject.GetComponent<ClassicBlock>();
                 tileScript.SetGridPosition(x, y);
                 Grid[x, y] = tileScript;
 
@@ -79,6 +79,12 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
 
     public void RefillTileGrid()
     {
+        ShiftTilesDown();
+        StartCoroutine(RefillCO(timeBetweenSingleSpawns));
+    }
+
+    private void ShiftTilesDown()
+    {
         for (var x = 0; x < gridX; x++)
         {
             for (var y = 0; y < gridY; y++)
@@ -95,30 +101,30 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
                 if (emptySpacesUnderTile > 0)
                 {
                     var block = Grid[x, y];
+
                     block.SetGridPosition(x, y - emptySpacesUnderTile, true);
                     Grid[x, y - emptySpacesUnderTile] = block;
                     Grid[x, y] = null;
                 }
             }
         }
-
-        StartCoroutine(RefillCO(timeBetweenSingleSpawns));
     }
 
     private IEnumerator RefillCO(float timeBetweenSpawns)
     {
+        Debug.Log("refill called");
         for (var y = 0; y < gridY; y++)
         {
             for (var x = 0; x < gridX; x++)
             {
                 if (Grid[x, y] != null) continue;
-                
+
                 var spawnPosition = Utilities.GetTopOfScreenY(_camera) + startYPosition;
                 var tileGameObject = _pooler.TilePool.Get();
                 tileGameObject.transform.position = new Vector2(x, spawnPosition);
                 tileGameObject.transform.SetParent(transform);
 
-                var tileScript = tileGameObject.GetComponent<Tile>();
+                var tileScript = tileGameObject.GetComponent<ClassicBlock>();
                 tileScript.SetGridPosition(x, y, true);
                 Grid[x, y] = tileScript;
 
@@ -129,9 +135,9 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
         }
     }
 
-    public List<Tile> GetNeighbourOf(Vector2Int pos)
+    public List<ITile> GetNeighbourOf(Vector2Int pos)
     {
-        var neighbours = new List<Tile>();
+        var neighbours = new List<ITile>();
 
         // right
         if (pos.x + 1 < gridX && Grid[pos.x + 1, pos.y] != null)
