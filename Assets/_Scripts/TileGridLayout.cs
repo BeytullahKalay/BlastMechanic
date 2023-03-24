@@ -46,8 +46,9 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
 
         for (var y = 0; y < gridY; y++)
         {
+            yield return new WaitForSeconds(timeBetweenSpawns);
+
             var column = new GameObject($"Column {y}");
-            //var spawnPosition = gridY + startYPosition;
             var spawnPosition = Utilities.GetTopOfScreenY(_camera) + startYPosition;
             Utilities.SetPositionY(column.transform, spawnPosition);
             column.transform.parent = transform;
