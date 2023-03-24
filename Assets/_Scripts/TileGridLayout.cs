@@ -8,8 +8,8 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
     public ITile[,] Grid;
 
     [SerializeField] private int gridX, gridY;
-    [SerializeField] private AnimationValuesHolder animationValuesHolder;
-    [SerializeField] private float startYPosition = 3f;
+    [SerializeField] private TileAnimationValuesHolder tileAnimationValuesHolder;
+    [SerializeField] private float increaseSpawnYPosition = 1f;
     
     [Header("Gizmo")]
     [SerializeField] private bool drawGizmos;
@@ -32,7 +32,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
 
     private void SetupScene()
     {
-        StartCoroutine(SetupCO(animationValuesHolder.TimeBetweenSpawns));
+        StartCoroutine(SetupCO(tileAnimationValuesHolder.TimeBetweenSpawns));
     }
 
     private IEnumerator SetupCO(float timeBetweenSpawns)
@@ -44,7 +44,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
             yield return new WaitForSeconds(timeBetweenSpawns);
 
             var column = new GameObject($"Column {y}");
-            var spawnPosition = Utilities.GetTopOfScreenY(_camera) + startYPosition;
+            var spawnPosition = Utilities.GetTopOfScreenY(_camera) + increaseSpawnYPosition;
             Utilities.SetPositionY(column.transform, spawnPosition);
             column.transform.parent = transform;
 
@@ -62,8 +62,8 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
                 EventManager.UpdateTileSpritesOf?.Invoke(tileScript.GetDestructArea());
             }
 
-            column.transform.DOMoveY(y, animationValuesHolder.ColumFallSpeed).SetSpeedBased()
-                .SetEase(animationValuesHolder.Ease).OnComplete(() =>
+            column.transform.DOMoveY(y, tileAnimationValuesHolder.ColumFallSpeed).SetSpeedBased()
+                .SetEase(tileAnimationValuesHolder.Ease).OnComplete(() =>
                 {
                     column.transform.DOMoveY(column.transform.position.y + .15f, .05f).SetLoops(2, LoopType.Yoyo);
                 });
@@ -77,7 +77,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
     public void RefillTileGrid()
     {
         ShiftTilesDown();
-        StartCoroutine(RefillCO(animationValuesHolder.TimeBetweenSingleSpawns));
+        StartCoroutine(RefillCO(tileAnimationValuesHolder.TimeBetweenSingleSpawns));
     }
 
     private void ShiftTilesDown()
@@ -109,14 +109,13 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
 
     private IEnumerator RefillCO(float timeBetweenSpawns)
     {
-        Debug.Log("refill called");
         for (var y = 0; y < gridY; y++)
         {
             for (var x = 0; x < gridX; x++)
             {
                 if (Grid[x, y] != null) continue;
 
-                var spawnPosition = Utilities.GetTopOfScreenY(_camera) + startYPosition;
+                var spawnPosition = Utilities.GetTopOfScreenY(_camera) + increaseSpawnYPosition;
                 var tileGameObject = _pooler.TilePool.Get();
                 tileGameObject.transform.position = new Vector2(x, spawnPosition);
                 tileGameObject.transform.SetParent(transform);

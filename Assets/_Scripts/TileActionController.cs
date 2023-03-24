@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class TileActionController : MonoBehaviour
 {
+    [SerializeField] private MergeAnimationValuesHolder mergeAnimationValuesHolder;
+
     private GameManager _gameManager;
     private TileGridLayout _tileGridLayout;
 
@@ -32,35 +34,13 @@ public class TileActionController : MonoBehaviour
 
             if (destructArea.Count < 2) return;
 
-            // // await foreach
-            // foreach (var t in destructArea)
-            // {
-            //     if (destructArea.Count >= 4)
-            //     {
-            //         PlayMergeAnimation(clickedTileCoord, t);
-            //     }
-            //     else
-            //     {
-            //         t.Destroy();
-            //         _tileGridLayout.RefillTileGrid();
-            //         
-            //         // task completed
-            //     }
-            //     
-            //     t.Destroy();
-            //
-            // }
-
             await DestroyTiles(destructArea, clickedTileCoord);
             
-            Debug.Log("Task Completed!");
-
             _tileGridLayout.RefillTileGrid();
-
         }
     }
 
-    private async Task DestroyTiles(List<ITile> destructArea,Vector2Int clickedTileCoord)
+    private async Task DestroyTiles(List<ITile> destructArea, Vector2Int clickedTileCoord)
     {
         _gameManager.SpawnerStates = SpawnerStates.OnAnimation;
 
@@ -69,7 +49,7 @@ public class TileActionController : MonoBehaviour
             var tasks = new Task[destructArea.Count];
 
             for (var i = 0; i < destructArea.Count; i++)
-            { 
+            {
                 tasks[i] = PlayMergeAnimation(clickedTileCoord, destructArea[i]);
             }
 
@@ -81,21 +61,22 @@ public class TileActionController : MonoBehaviour
             {
                 t.Destroy();
             }
+
             await Task.CompletedTask;
         }
+
         _gameManager.SpawnerStates = SpawnerStates.Playable;
     }
 
     private async Task PlayMergeAnimation(Vector2Int clickedTileCoord, ITile t)
     {
         var mySequence = DOTween.Sequence();
+
+        mySequence.Append(t.TileTransform.DOMove(new Vector3(clickedTileCoord.x, clickedTileCoord.y, 0),
+                mergeAnimationValuesHolder.Duration).SetEase(mergeAnimationValuesHolder.Ease));
         
-        mySequence.Append(t.TileTransform
-            .DOMove(new Vector3(clickedTileCoord.x, clickedTileCoord.y, 0), .25f).SetEase(Ease.InBack));
-        mySequence.Join(t.TileTransform.DOPunchScale(Vector3.one, .25f, 2));
-        await mySequence.OnComplete(() =>
-        {
-            t.Destroy();
-        }).AsyncWaitForCompletion();
+        mySequence.Join(t.TileTransform.DOPunchScale(Vector3.one, mergeAnimationValuesHolder.Duration, 2));
+        
+        await mySequence.OnComplete(() => { t.Destroy(); }).AsyncWaitForCompletion();
     }
 }

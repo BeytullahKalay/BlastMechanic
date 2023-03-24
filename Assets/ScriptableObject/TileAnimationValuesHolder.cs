@@ -1,8 +1,8 @@
 using DG.Tweening;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/AnimationValuesHolder", fileName = "AnimationValues")]
-public class AnimationValuesHolder : ScriptableObject
+[CreateAssetMenu(menuName = "ScriptableObjects/TileAnimationValuesHolder", fileName = "AnimationValues")]
+public class TileAnimationValuesHolder : ScriptableObject
 {
     [SerializeField] private float timeBetweenSpawns = .15f;
     [SerializeField] private float timeBetweenSingleSpawns = .15f;
