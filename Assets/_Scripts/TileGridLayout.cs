@@ -5,20 +5,15 @@ using UnityEngine;
 
 public class TileGridLayout : MonoSingleton<TileGridLayout>
 {
-    [SerializeField] private int gridX, gridY;
     public ITile[,] Grid;
 
-    [Header("Start Animation Values")]
-    [SerializeField] private float timeBetweenSpawns = .15f;
-    [SerializeField] private float timeBetweenSingleSpawns = .15f;
+    [SerializeField] private int gridX, gridY;
+    [SerializeField] private AnimationValuesHolder animationValuesHolder;
     [SerializeField] private float startYPosition = 3f;
-    [SerializeField] private float columnFallSpeed = 12f;
-    [SerializeField] private Ease ease;
-
+    
     [Header("Gizmo")]
     [SerializeField] private bool drawGizmos;
-
-
+    
     private GameManager _gameManager;
     private Camera _camera;
     private Pooler _pooler;
@@ -30,14 +25,14 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
         _pooler = Pooler.Instance;
 
         // initialize grid layout
-        Grid = new ClassicBlock[gridX, gridY];
+        Grid = new ITile[gridX, gridY];
 
         SetupScene();
     }
 
     private void SetupScene()
     {
-        StartCoroutine(SetupCO(timeBetweenSpawns));
+        StartCoroutine(SetupCO(animationValuesHolder.TimeBetweenSpawns));
     }
 
     private IEnumerator SetupCO(float timeBetweenSpawns)
@@ -67,10 +62,11 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
                 EventManager.UpdateTileSpritesOf?.Invoke(tileScript.GetDestructArea());
             }
 
-            column.transform.DOMoveY(y, columnFallSpeed).SetSpeedBased().SetEase(ease).OnComplete(() =>
-            {
-                column.transform.DOMoveY(column.transform.position.y + .15f, .05f).SetLoops(2, LoopType.Yoyo);
-            });
+            column.transform.DOMoveY(y, animationValuesHolder.ColumFallSpeed).SetSpeedBased()
+                .SetEase(animationValuesHolder.Ease).OnComplete(() =>
+                {
+                    column.transform.DOMoveY(column.transform.position.y + .15f, .05f).SetLoops(2, LoopType.Yoyo);
+                });
 
             yield return new WaitForSeconds(timeBetweenSpawns);
         }
@@ -81,7 +77,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
     public void RefillTileGrid()
     {
         ShiftTilesDown();
-        StartCoroutine(RefillCO(timeBetweenSingleSpawns));
+        StartCoroutine(RefillCO(animationValuesHolder.TimeBetweenSingleSpawns));
     }
 
     private void ShiftTilesDown()

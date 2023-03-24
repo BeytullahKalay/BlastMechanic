@@ -324,7 +324,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &354667132
 GameObject:
@@ -369,7 +369,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -656,7 +656,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1129370449
 GameObject:
@@ -689,11 +689,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridX: 10
   gridY: 10
-  timeBetweenSpawns: 0.075
-  timeBetweenSingleSpawns: 0.05
+  animationValuesHolder: {fileID: 11400000, guid: 514725a68b111974c8413e8d411d981f, type: 2}
   startYPosition: 1
-  columnFallSpeed: 12
-  ease: 5
   drawGizmos: 0
 --- !u!4 &1129370451
 Transform:
@@ -708,7 +705,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1160926976
 GameObject:
@@ -805,7 +802,7 @@ RectTransform:
   m_Children:
   - {fileID: 1893870324}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
