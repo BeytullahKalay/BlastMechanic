@@ -11,6 +11,7 @@ public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
 
     public SpriteRenderer SpriteRenderer { get; set; }
     public Transform TileTransform { get; set; }
+    public bool UpdateSprite { get; private set; }
     public TileBlock TileBlock { get; set; }
 
     private TileGridLayout _tileGridLayout;
@@ -27,6 +28,7 @@ public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
         SpriteRenderer = GetComponent<SpriteRenderer>();
         TileTransform = transform;
         TileBlock = new ClassicBlockTile(SpriteRenderer, classicBlockSpriteHolder, gameObject);
+        UpdateSprite = true;
     }
 
 

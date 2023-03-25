@@ -5,12 +5,12 @@ public class ClassicBlockTile : TileBlock
 {
     private ClassicBlockSpriteHolder _classicBlockSpriteHolder;
 
-    public ClassicBlockTile(SpriteRenderer spriteRenderer, ClassicBlockSpriteHolder classicBlockSpriteHolder, GameObject gameTileObject,
+    public ClassicBlockTile(SpriteRenderer spriteRenderer, ClassicBlockSpriteHolder classicBlockSpriteHolder, GameObject gameTileGameObject,
          Vector2Int gridPosition = default)
     {
         GridPosition = gridPosition;
         _spriteRenderer = spriteRenderer;
-        _tileObject = gameTileObject;
+        TileGameObject = gameTileGameObject;
         _classicBlockSpriteHolder = classicBlockSpriteHolder;
         TileType = TileType.Blue;
         Tween = null;
@@ -24,6 +24,6 @@ public class ClassicBlockTile : TileBlock
         TileType = tileSprite.TileType;
         _spriteRenderer.sprite = tileSprite.DefaultSprite;
         _spriteRenderer.sortingOrder = GridPosition.y;
-        _tileObject.name = $"({GridPosition.x},{GridPosition.y})";
+        TileGameObject.name = $"({GridPosition.x},{GridPosition.y})";
     }
 }

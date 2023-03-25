@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class RocketBlock : MonoBehaviour, ITile
@@ -8,6 +7,7 @@ public class RocketBlock : MonoBehaviour, ITile
     public TileBlock TileBlock { get; set; }
     public SpriteRenderer SpriteRenderer { get; set; }
     public Transform TileTransform { get; set; }
+    public bool UpdateSprite { get; private set; }
 
     private TileGridLayout _tileGridLayout;
     private GameManager _gameManager;
@@ -19,6 +19,7 @@ public class RocketBlock : MonoBehaviour, ITile
         _tileGridLayout = TileGridLayout.Instance;
         SpriteRenderer = GetComponent<SpriteRenderer>();
         TileTransform = transform;
+        UpdateSprite = false;
         TileBlock = new RocketBlockTile(SpriteRenderer, extrasSpriteHolder.RocketSprite, gameObject,
             new Vector2Int((int)transform.position.x, (int)transform.position.y));
     }
@@ -36,7 +37,6 @@ public class RocketBlock : MonoBehaviour, ITile
 
     private void OnMouseDown()
     {
-        print("clicked!");
         AttemptToDestroyObject();
     }
 

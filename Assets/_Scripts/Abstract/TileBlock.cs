@@ -7,7 +7,7 @@ public abstract class TileBlock
     public Vector2Int GridPosition;
 
     protected SpriteRenderer _spriteRenderer;
-    protected GameObject _tileObject;
+    public GameObject TileGameObject;
 
     public TileType TileType { get; protected set; }
     public Tween Tween { get; protected set; }
@@ -18,9 +18,9 @@ public abstract class TileBlock
     {
         GridPosition = new Vector2Int(x, y);
         _spriteRenderer.sortingOrder = y;
-        _tileObject.name = $"({GridPosition.x},{GridPosition.y})";
+        TileGameObject.name = $"({GridPosition.x},{GridPosition.y})";
 
-        var obj = _tileObject; // defined for dotween unexpected this object error.
+        var obj = TileGameObject; // defined for dotween unexpected this object error.
 
         if (playAnimation)
         {

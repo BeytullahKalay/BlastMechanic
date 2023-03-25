@@ -3,12 +3,12 @@ using UnityEngine;
 public class RocketBlockTile : TileBlock
 {
     private Sprite _tileSprite;
-    public RocketBlockTile(SpriteRenderer spriteRenderer, Sprite tileSprite, GameObject gameTileObject,
+    public RocketBlockTile(SpriteRenderer spriteRenderer, Sprite tileSprite, GameObject gameTileGameObject,
         Vector2Int gridPosition = default)
     {
         GridPosition = gridPosition;
         _spriteRenderer = spriteRenderer;
-        _tileObject = gameTileObject;
+        TileGameObject = gameTileGameObject;
         _tileSprite = tileSprite;
         Initialize();
     }

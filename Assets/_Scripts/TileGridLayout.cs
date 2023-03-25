@@ -129,25 +129,25 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
         var neighbours = new List<ITile>();
 
         // right
-        if (pos.x + 1 < gridX && Grid[pos.x + 1, pos.y] != null)
+        if (pos.x + 1 < gridX && Grid[pos.x + 1, pos.y] != null && Grid[pos.x + 1, pos.y].UpdateSprite)
         {
             neighbours.Add(Grid[pos.x + 1, pos.y]);
         }
 
         // left
-        if (pos.x - 1 >= 0 && Grid[pos.x - 1, pos.y] != null)
+        if (pos.x - 1 >= 0 && Grid[pos.x - 1, pos.y] != null && Grid[pos.x - 1, pos.y].UpdateSprite)
         {
             neighbours.Add(Grid[pos.x - 1, pos.y]);
         }
 
         // above
-        if (pos.y + 1 < gridY && Grid[pos.x, pos.y + 1] != null)
+        if (pos.y + 1 < gridY && Grid[pos.x, pos.y + 1] != null && Grid[pos.x, pos.y + 1].UpdateSprite)
         {
             neighbours.Add(Grid[pos.x, pos.y + 1]);
         }
 
         // below
-        if (pos.y - 1 >= 0 && Grid[pos.x, pos.y - 1] != null)
+        if (pos.y - 1 >= 0 && Grid[pos.x, pos.y - 1] != null && Grid[pos.x, pos.y - 1].UpdateSprite)
         {
             neighbours.Add(Grid[pos.x, pos.y - 1]);
         }
