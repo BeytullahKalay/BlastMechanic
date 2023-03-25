@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using DG.Tweening;
 using UnityEngine;
 
@@ -118,7 +117,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
                 tileScript.OnSpawn(new Vector2(x, spawnPosition), new Vector2Int(x, y), transform);
 
                 yield return new WaitForSeconds(timeBetweenSpawns);
-                
+
                 EventManager.UpdateAllTileSprites?.Invoke();
             }
         }
@@ -128,28 +127,63 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
     {
         var neighbours = new List<ITile>();
 
+
+        // // right
+        // if (pos.x + 1 < gridX && Grid[pos.x + 1, pos.y] != null && Grid[pos.x + 1, pos.y].SpriteUpdatable)
+        // {
+        //     neighbours.Add(Grid[pos.x + 1, pos.y]);
+        // }
+        //
+        // // left
+        // if (pos.x - 1 >= 0 && Grid[pos.x - 1, pos.y] != null && Grid[pos.x - 1, pos.y].SpriteUpdatable)
+        // {
+        //     neighbours.Add(Grid[pos.x - 1, pos.y]);
+        // }
+        //
+        // // above
+        // if (pos.y + 1 < gridY && Grid[pos.x, pos.y + 1] != null && Grid[pos.x, pos.y + 1].SpriteUpdatable)
+        // {
+        //     neighbours.Add(Grid[pos.x, pos.y + 1]);
+        // }
+        //
+        // // below
+        // if (pos.y - 1 >= 0 && Grid[pos.x, pos.y - 1] != null && Grid[pos.x, pos.y - 1].SpriteUpdatable)
+        // {
+        //     neighbours.Add(Grid[pos.x, pos.y - 1]);
+        // }
+
         // right
-        if (pos.x + 1 < gridX && Grid[pos.x + 1, pos.y] != null && Grid[pos.x + 1, pos.y].UpdateSprite)
+        
+        
+        if (pos.x + 1 < gridX && Grid[pos.x + 1, pos.y] != null)
         {
-            neighbours.Add(Grid[pos.x + 1, pos.y]);
+            var tile = Grid[pos.x + 1, pos.y];
+            var t = tile as ClassicBlock;
+            if (t != null) neighbours.Add(tile);
         }
 
         // left
-        if (pos.x - 1 >= 0 && Grid[pos.x - 1, pos.y] != null && Grid[pos.x - 1, pos.y].UpdateSprite)
+        if (pos.x - 1 >= 0 && Grid[pos.x - 1, pos.y] != null)
         {
-            neighbours.Add(Grid[pos.x - 1, pos.y]);
+            var tile = Grid[pos.x - 1, pos.y];
+            var t = Grid[pos.x - 1, pos.y] as ClassicBlock;
+            if (t != null) neighbours.Add(tile);
         }
 
         // above
-        if (pos.y + 1 < gridY && Grid[pos.x, pos.y + 1] != null && Grid[pos.x, pos.y + 1].UpdateSprite)
+        if (pos.y + 1 < gridY && Grid[pos.x, pos.y + 1] != null)
         {
-            neighbours.Add(Grid[pos.x, pos.y + 1]);
+            var tile = Grid[pos.x, pos.y + 1];
+            var t = tile as ClassicBlock;
+            if (t != null) neighbours.Add(tile);
         }
 
         // below
-        if (pos.y - 1 >= 0 && Grid[pos.x, pos.y - 1] != null && Grid[pos.x, pos.y - 1].UpdateSprite)
+        if (pos.y - 1 >= 0 && Grid[pos.x, pos.y - 1] != null)
         {
-            neighbours.Add(Grid[pos.x, pos.y - 1]);
+            var tile = Grid[pos.x, pos.y - 1];
+            var t = tile as ClassicBlock;
+            if (t != null) neighbours.Add(tile);
         }
 
         return neighbours;

@@ -4,14 +4,13 @@ using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
+public class ClassicBlock : MonoBehaviour, ITile
 {
     [SerializeField] private ClassicBlockSpriteHolder classicBlockSpriteHolder;
     [SerializeField] private MergeValuesHolder mergeValuesHolder;
 
     public SpriteRenderer SpriteRenderer { get; set; }
     public Transform TileTransform { get; set; }
-    public bool UpdateSprite { get; private set; }
     public TileBlock TileBlock { get; set; }
 
     private TileGridLayout _tileGridLayout;
@@ -28,7 +27,6 @@ public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
         SpriteRenderer = GetComponent<SpriteRenderer>();
         TileTransform = transform;
         TileBlock = new ClassicBlockTile(SpriteRenderer, classicBlockSpriteHolder, gameObject);
-        UpdateSprite = true;
     }
 
 
@@ -161,7 +159,7 @@ public class ClassicBlock : MonoBehaviour, ISpawnable, ITile
             case >= 4:
                 extraObj = Instantiate(mergeValuesHolder.Rocket, transform.position, Quaternion.identity);
                 break;
-            case < 4: print("less than 4");
+            case < 4:
                 return;
         }
 
