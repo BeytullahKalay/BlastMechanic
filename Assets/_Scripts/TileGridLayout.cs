@@ -11,10 +11,9 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
     [SerializeField] private int gridX, gridY;
     [SerializeField] private TileAnimationValuesHolder tileAnimationValuesHolder;
     [SerializeField] private float increaseSpawnYPosition = 1f;
-    
-    [Header("Gizmo")]
-    [SerializeField] private bool drawGizmos;
-    
+
+    [Header("Gizmo")] [SerializeField] private bool drawGizmos;
+
     private GameManager _gameManager;
     private Camera _camera;
     private Pooler _pooler;
@@ -53,7 +52,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
             {
                 var tileGameObject = _pooler.TilePool.Get();
                 var tileScript = tileGameObject.GetComponent<ClassicBlock>();
-                tileScript.OnSpawn(new Vector2Int(x,y),column.transform);
+                tileScript.OnSpawn(new Vector2Int(x, y), column.transform);
                 Utilities.SetLocalPositionY(tileGameObject.transform);
                 EventManager.UpdateTileSpritesOf?.Invoke(tileScript.GetDestructArea());
             }
@@ -105,8 +104,6 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
 
     private IEnumerator RefillCO(float timeBetweenSpawns)
     {
-        
-        
         for (var y = 0; y < gridY; y++)
         {
             for (var x = 0; x < gridX; x++)
@@ -115,12 +112,13 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
 
                 var spawnPosition = Utilities.GetTopOfScreenY(_camera) + increaseSpawnYPosition;
                 var tileGameObject = _pooler.TilePool.Get();
-                
+
                 tileGameObject.transform.position = new Vector2(x, spawnPosition);
                 var tileScript = tileGameObject.GetComponent<ClassicBlock>();
-                tileScript.OnSpawn(new Vector2(x, spawnPosition),new Vector2Int(x, y), transform);
-                
+                tileScript.OnSpawn(new Vector2(x, spawnPosition), new Vector2Int(x, y), transform);
+
                 yield return new WaitForSeconds(timeBetweenSpawns);
+                
                 EventManager.UpdateAllTileSprites?.Invoke();
             }
         }
@@ -157,19 +155,14 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
         return neighbours;
     }
 
-    public List<ITile> GetXLineOf(Vector2Int pos)
+    public List<ITile> GetXLineOf(int posY)
     {
         var xLine = new List<ITile>();
 
         for (var x = 0; x < gridX; x++)
         {
-            xLine.Add(Grid[x,pos.y]);
-
-            var grid = Grid[x, pos.y];
-            if (grid != null)
-            {
-                xLine.Add(grid);
-            }
+            var grid = Grid[x, posY];
+            if (grid != null) xLine.Add(grid);
         }
 
         return xLine;

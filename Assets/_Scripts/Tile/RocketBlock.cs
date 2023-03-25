@@ -1,45 +1,73 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class RocketBlock : MonoBehaviour,ITile
+public class RocketBlock : MonoBehaviour, ITile
 {
     [SerializeField] private ExtrasSpriteHolder extrasSpriteHolder;
-    
-    private TileGridLayout _tileGridLayout;
-
-    
-    public TileBase TileBase { get; set; }
+    public TileBlock TileBlock { get; set; }
     public SpriteRenderer SpriteRenderer { get; set; }
     public Transform TileTransform { get; set; }
 
+    private TileGridLayout _tileGridLayout;
+    private GameManager _gameManager;
+
+
     private void Awake()
     {
+        _gameManager = GameManager.Instance;
         _tileGridLayout = TileGridLayout.Instance;
         SpriteRenderer = GetComponent<SpriteRenderer>();
         TileTransform = transform;
-        TileBase = new RocketBlockTile(SpriteRenderer,extrasSpriteHolder.RocketSprite,gameObject);
+        TileBlock = new RocketBlockTile(SpriteRenderer, extrasSpriteHolder.RocketSprite, gameObject,
+            new Vector2Int((int)transform.position.x, (int)transform.position.y));
     }
 
     public void SetGridPosition(int x, int y, bool playPositioningAnimation = false)
     {
-        TileBase.SetGridPosition(x, y, playPositioningAnimation);
+        TileBlock.SetGridPosition(x, y, playPositioningAnimation);
     }
-    
-    
+
 
     public List<ITile> GetDestructArea()
     {
-        var xLine = _tileGridLayout.GetXLineOf(TileBase.GridPosition);
-        return xLine;
+        return null;
+    }
+
+    private void OnMouseDown()
+    {
+        print("clicked!");
+        AttemptToDestroyObject();
     }
 
     public void AttemptToDestroyObject()
     {
-        throw new System.NotImplementedException();
+        CheckAction();
+    }
+
+    private void CheckAction()
+    {
+        if (_gameManager.SpawnerStates == SpawnerStates.Playable)
+        {
+            var destructArea = GetDestructTile();
+            foreach (var tile in destructArea)
+            {
+                tile.Destroy();
+            }
+
+            _tileGridLayout.RefillTileGrid();
+        }
+    }
+
+    private List<ITile> GetDestructTile()
+    {
+        var xLine = _tileGridLayout.GetXLineOf(TileBlock.GridPosition.y);
+        return xLine;
     }
 
     public void Destroy()
     {
-        throw new System.NotImplementedException();
+        _tileGridLayout.SetGridNull(TileBlock.GridPosition);
+        Destroy(gameObject);
     }
 }

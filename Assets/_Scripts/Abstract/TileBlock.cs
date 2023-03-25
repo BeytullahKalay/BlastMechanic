@@ -2,12 +2,12 @@ using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public abstract class TileBase
+public abstract class TileBlock
 {
     public Vector2Int GridPosition;
 
     protected SpriteRenderer _spriteRenderer;
-    protected GameObject _object;
+    protected GameObject _tileObject;
 
     public TileType TileType { get; protected set; }
     public Tween Tween { get; protected set; }
@@ -18,9 +18,9 @@ public abstract class TileBase
     {
         GridPosition = new Vector2Int(x, y);
         _spriteRenderer.sortingOrder = y;
-        _object.name = $"({GridPosition.x},{GridPosition.y})";
+        _tileObject.name = $"({GridPosition.x},{GridPosition.y})";
 
-        var obj = _object; // defined for dotween unexpected this object error.
+        var obj = _tileObject; // defined for dotween unexpected this object error.
 
         if (playAnimation)
         {

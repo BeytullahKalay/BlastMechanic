@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class RocketBlockTile : TileBase
+public class RocketBlockTile : TileBlock
 {
     private Sprite _tileSprite;
-    public RocketBlockTile(SpriteRenderer spriteRenderer, Sprite tileSprite, GameObject gameObject,
+    public RocketBlockTile(SpriteRenderer spriteRenderer, Sprite tileSprite, GameObject gameTileObject,
         Vector2Int gridPosition = default)
     {
         GridPosition = gridPosition;
         _spriteRenderer = spriteRenderer;
-        _object = gameObject;
+        _tileObject = gameTileObject;
         _tileSprite = tileSprite;
         Initialize();
     }

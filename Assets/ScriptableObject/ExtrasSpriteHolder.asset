@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dca21b84f8e2094384d87e978975234, type: 3}
   m_Name: ExtrasSpriteHolder
   m_EditorClassIdentifier: 
-  rocketSprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  rocketSprite: {fileID: 21300000, guid: daf2ab606d4db0d4f9ecf4c02137d2a8, type: 3}
   bombSprite: {fileID: 0}

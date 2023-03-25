@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0.17
   ease: 26
+  rocket: {fileID: 2808390645963130201, guid: 5353c78d1f6d288418fb9d961707d133, type: 3}
+  bomb: {fileID: 0}
+  discoBall: {fileID: 0}

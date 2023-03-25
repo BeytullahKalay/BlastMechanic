@@ -13,7 +13,7 @@ public class Pooler : MonoSingleton<Pooler>
             return Instantiate(tilePrefab);
         }, block =>
         {
-            block.GetComponent<ClassicBlock>().TileBase.Initialize();
+            block.GetComponent<ClassicBlock>().TileBlock.Initialize();
             block.gameObject.SetActive(true);
         }, block =>
         {

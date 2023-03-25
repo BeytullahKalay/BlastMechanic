@@ -1,16 +1,16 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class ClassicBlockTile : TileBase
+public class ClassicBlockTile : TileBlock
 {
     private ClassicBlockSpriteHolder _classicBlockSpriteHolder;
 
-    public ClassicBlockTile(SpriteRenderer spriteRenderer, ClassicBlockSpriteHolder classicBlockSpriteHolder, GameObject gameObject,
+    public ClassicBlockTile(SpriteRenderer spriteRenderer, ClassicBlockSpriteHolder classicBlockSpriteHolder, GameObject gameTileObject,
          Vector2Int gridPosition = default)
     {
         GridPosition = gridPosition;
         _spriteRenderer = spriteRenderer;
-        _object = gameObject;
+        _tileObject = gameTileObject;
         _classicBlockSpriteHolder = classicBlockSpriteHolder;
         TileType = TileType.Blue;
         Tween = null;
@@ -24,6 +24,6 @@ public class ClassicBlockTile : TileBase
         TileType = tileSprite.TileType;
         _spriteRenderer.sprite = tileSprite.DefaultSprite;
         _spriteRenderer.sortingOrder = GridPosition.y;
-        _object.name = $"({GridPosition.x},{GridPosition.y})";
+        _tileObject.name = $"({GridPosition.x},{GridPosition.y})";
     }
 }
