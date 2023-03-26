@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class RocketBlockTile : TileBlock
+public class ExtraBlockTile : TileBlock
 {
     private Sprite _tileSprite;
-    public RocketBlockTile(SpriteRenderer spriteRenderer, Sprite tileSprite, GameObject gameTileGameObject,
+    public ExtraBlockTile(SpriteRenderer spriteRenderer, Sprite tileSprite, GameObject gameTileGameObject,
         Vector2Int gridPosition = default)
     {
         GridPosition = gridPosition;

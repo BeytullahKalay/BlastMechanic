@@ -15,5 +15,5 @@ MonoBehaviour:
   duration: 0.17
   ease: 26
   rocket: {fileID: 2808390645963130201, guid: 5353c78d1f6d288418fb9d961707d133, type: 3}
-  bomb: {fileID: 0}
+  bomb: {fileID: 599834887533490727, guid: 0dab5b9382d96024fb06ca0b09c71690, type: 3}
   discoBall: {fileID: 0}

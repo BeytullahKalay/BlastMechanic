@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: ExtrasSpriteHolder
   m_EditorClassIdentifier: 
   rocketSprite: {fileID: 21300000, guid: 4e8a9388a6980154e902e3fe07829217, type: 3}
-  fuseSprite: {fileID: 21300000, guid: 5d6bc3299dbc37e48b050c92b8d650eb, type: 3}
-  bombSprite: {fileID: 0}
+  bombSprite: {fileID: 21300000, guid: e5cc396b47cd8f9479e8b7ff27371d4d, type: 3}

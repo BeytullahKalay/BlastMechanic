@@ -7,9 +7,9 @@ public class RocketBlock : MonoBehaviour, ITile
 {
     [SerializeField] private ExtrasSpriteHolder extrasSpriteHolder;
     [SerializeField] private GameObject fuseObject;
-    public TileBlock TileBlock { get; set; }
-    public SpriteRenderer SpriteRenderer { get; set; }
-    public Transform TileTransform { get; set; }
+    public TileBlock TileBlock { get; private set; }
+    public SpriteRenderer SpriteRenderer { get; private set; }
+    public Transform TileTransform { get; private set; }
 
     private TileGridLayout _tileGridLayout;
     private GameManager _gameManager;
@@ -23,7 +23,7 @@ public class RocketBlock : MonoBehaviour, ITile
         _tileGridLayout = TileGridLayout.Instance;
         SpriteRenderer = GetComponent<SpriteRenderer>();
         TileTransform = transform;
-        TileBlock = new RocketBlockTile(SpriteRenderer, extrasSpriteHolder.RocketSprite, gameObject,
+        TileBlock = new ExtraBlockTile(SpriteRenderer, extrasSpriteHolder.RocketSprite, gameObject,
             new Vector2Int((int)transform.position.x, (int)transform.position.y));
     }
 

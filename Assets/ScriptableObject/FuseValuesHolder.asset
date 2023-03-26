@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04017557fcb18a41b1a2d9f27dfc9b0, type: 3}
   m_Name: FuseValuesHolder
   m_EditorClassIdentifier: 
-  moveSpeed: 12
+  moveSpeed: 17.25

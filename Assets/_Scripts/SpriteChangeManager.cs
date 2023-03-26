@@ -46,9 +46,7 @@ public class SpriteChangeManager : MonoBehaviour
             {
                 if (_tileGridLayout.Grid[x, y] == null) continue;
                 var neighbours = _tileGridLayout.Grid[x, y].GetDestructArea();
-                
-                if(neighbours == null) return;
-
+                if (neighbours == null) continue;
                 var tileSprite = classicBlockSpriteHolder.GetTileSprite(neighbours[0].TileBlock.TileType);
                 var s = FindSprite(tileSprite, neighbours.Count);
 
