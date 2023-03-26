@@ -127,34 +127,6 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
     {
         var neighbours = new List<ITile>();
 
-
-        // // right
-        // if (pos.x + 1 < gridX && Grid[pos.x + 1, pos.y] != null && Grid[pos.x + 1, pos.y].SpriteUpdatable)
-        // {
-        //     neighbours.Add(Grid[pos.x + 1, pos.y]);
-        // }
-        //
-        // // left
-        // if (pos.x - 1 >= 0 && Grid[pos.x - 1, pos.y] != null && Grid[pos.x - 1, pos.y].SpriteUpdatable)
-        // {
-        //     neighbours.Add(Grid[pos.x - 1, pos.y]);
-        // }
-        //
-        // // above
-        // if (pos.y + 1 < gridY && Grid[pos.x, pos.y + 1] != null && Grid[pos.x, pos.y + 1].SpriteUpdatable)
-        // {
-        //     neighbours.Add(Grid[pos.x, pos.y + 1]);
-        // }
-        //
-        // // below
-        // if (pos.y - 1 >= 0 && Grid[pos.x, pos.y - 1] != null && Grid[pos.x, pos.y - 1].SpriteUpdatable)
-        // {
-        //     neighbours.Add(Grid[pos.x, pos.y - 1]);
-        // }
-
-        // right
-        
-        
         if (pos.x + 1 < gridX && Grid[pos.x + 1, pos.y] != null)
         {
             var tile = Grid[pos.x + 1, pos.y];
@@ -188,20 +160,7 @@ public class TileGridLayout : MonoSingleton<TileGridLayout>
 
         return neighbours;
     }
-
-    public List<ITile> GetXLineOf(int posY)
-    {
-        var xLine = new List<ITile>();
-
-        for (var x = 0; x < gridX; x++)
-        {
-            var grid = Grid[x, posY];
-            if (grid != null) xLine.Add(grid);
-        }
-
-        return xLine;
-    }
-
+    
     public void SetGridNull(Vector2Int gridCoord)
     {
         Grid[gridCoord.x, gridCoord.y] = null;

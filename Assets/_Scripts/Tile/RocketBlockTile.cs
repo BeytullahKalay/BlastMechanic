@@ -16,5 +16,6 @@ public class RocketBlockTile : TileBlock
     public override void Initialize()
     {
         _spriteRenderer.sprite = _tileSprite;
+        _spriteRenderer.sortingOrder = GridPosition.y;
     }
 }

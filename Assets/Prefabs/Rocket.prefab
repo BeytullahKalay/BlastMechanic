@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2808390645963130201}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.106, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -125,3 +125,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   extrasSpriteHolder: {fileID: 11400000, guid: 7fb2d27a26475624ea425c87fb6abe4d, type: 2}
+  fuseObject: {fileID: 3410840583680526264, guid: 607d4d213f06c1147b5bc0d0ef394f05, type: 3}

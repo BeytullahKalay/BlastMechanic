@@ -8,5 +8,5 @@ public interface IDestroyable
 
     public void AttemptToDestroyObject();
 
-    public void Destroy();
+    public void Interact();
 }

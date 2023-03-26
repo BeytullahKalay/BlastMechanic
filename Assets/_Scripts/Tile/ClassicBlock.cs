@@ -42,10 +42,10 @@ public class ClassicBlock : MonoBehaviour, ITile
 
     public void AttemptToDestroyObject()
     {
-        CheckIsDestroyable();
+        Attempt();
     }
 
-    private async void CheckIsDestroyable()
+    private async void Attempt()
     {
         if (_gameManager.SpawnerStates == SpawnerStates.Playable)
         {
@@ -118,7 +118,7 @@ public class ClassicBlock : MonoBehaviour, ITile
         {
             foreach (var tile in destructArea)
             {
-                tile.Destroy();
+                tile.Interact();
             }
 
             await Task.CompletedTask;
@@ -136,10 +136,10 @@ public class ClassicBlock : MonoBehaviour, ITile
 
         mySequence.Join(t.TileTransform.DOPunchScale(Vector3.one, mergeValuesHolder.Duration, 2));
 
-        await mySequence.OnComplete(t.Destroy).AsyncWaitForCompletion();
+        await mySequence.OnComplete(t.Interact).AsyncWaitForCompletion();
     }
 
-    public void Destroy()
+    public void Interact()
     {
         _tileGridLayout.SetGridNull(TileBlock.GridPosition);
         _pooler.TilePool.Release(gameObject);

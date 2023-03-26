@@ -15,3 +15,9 @@ public enum TileType
     Pink,
     Blue
 }
+
+public enum RocketType
+{
+    Horizontal,
+    Vertical
+}
