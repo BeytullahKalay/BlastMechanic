@@ -25,6 +25,7 @@ public class RocketBlock : MonoBehaviour, ITile
         TileTransform = transform;
         TileBlock = new ExtraBlockTile(SpriteRenderer, extrasSpriteHolder.RocketSprite, gameObject,
             new Vector2Int((int)transform.position.x, (int)transform.position.y));
+        
     }
 
     private void Start()

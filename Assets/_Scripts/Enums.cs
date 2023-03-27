@@ -13,7 +13,8 @@ public enum TileType
     Yellow,
     Purple,
     Pink,
-    Blue
+    Blue,
+    Extra
 }
 
 public enum RocketType
