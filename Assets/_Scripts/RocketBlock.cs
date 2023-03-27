@@ -25,7 +25,6 @@ public class RocketBlock : MonoBehaviour, ITile
         TileTransform = transform;
         TileBlock = new ExtraBlockTile(SpriteRenderer, extrasSpriteHolder.RocketSprite, gameObject,
             new Vector2Int((int)transform.position.x, (int)transform.position.y));
-        
     }
 
     private void Start()
@@ -43,7 +42,7 @@ public class RocketBlock : MonoBehaviour, ITile
     {
         TileBlock.SetGridPosition(x, y, playPositioningAnimation);
     }
-    
+
     public List<ITile> GetDestructArea()
     {
         return null;
@@ -71,7 +70,7 @@ public class RocketBlock : MonoBehaviour, ITile
     private async Task DestroyTiles()
     {
         _gameManager.SpawnerStates = SpawnerStates.OnAnimation;
-        
+
         gameObject.SetActive(false);
         _tileGridLayout.SetGridNull(TileBlock.GridPosition);
 
@@ -88,10 +87,9 @@ public class RocketBlock : MonoBehaviour, ITile
         _gameManager.SpawnerStates = SpawnerStates.Playable;
     }
 
-    public void Interact()
+    public async void Interact()
     {
-        Action();
-        
+        await Action();
         Destroy(gameObject);
     }
 }
