@@ -82,7 +82,7 @@ public class ClassicBlock : MonoBehaviour, ITile
         return destructArea;
     }
 
-    private List<ITile> GetNeighbours(Vector2Int tilePos) 
+    private List<ITile> GetNeighbours(Vector2Int tilePos)
     {
         var allNeighbours = _tileGridLayout.GetNeighbourOf(tilePos);
 
@@ -152,6 +152,9 @@ public class ClassicBlock : MonoBehaviour, ITile
         {
             case >= 9:
                 extraObj = Instantiate(mergeValuesHolder.DiscoBall, transform.position, Quaternion.identity);
+                var discoBall = extraObj.GetComponent<DiscoBall>();
+                discoBall.SearchTileType = TileBlock.TileType;
+                discoBall.CreateNewDiscoTileBlock();
                 break;
             case >= 7:
                 extraObj = Instantiate(mergeValuesHolder.Bomb, transform.position, Quaternion.identity);

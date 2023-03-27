@@ -3,6 +3,7 @@ using UnityEngine;
 public class ExtraBlockTile : TileBlock
 {
     private Sprite _tileSprite;
+
     public ExtraBlockTile(SpriteRenderer spriteRenderer, Sprite tileSprite, GameObject gameTileGameObject,
         Vector2Int gridPosition = default)
     {
@@ -12,7 +13,8 @@ public class ExtraBlockTile : TileBlock
         _tileSprite = tileSprite;
         Initialize();
     }
-    
+
+
     public override void Initialize()
     {
         _spriteRenderer.sprite = _tileSprite;

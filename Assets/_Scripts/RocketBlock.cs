@@ -53,11 +53,11 @@ public class RocketBlock : MonoBehaviour, ITile
         AttemptToDestroyObject();
     }
 
-    public void AttemptToDestroyObject()
+    public async void AttemptToDestroyObject()
     {
         if (_gameManager.SpawnerStates == SpawnerStates.Playable)
         {
-            Action();
+            await Action();
         }
     }
 

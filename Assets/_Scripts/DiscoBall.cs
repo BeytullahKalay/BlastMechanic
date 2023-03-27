@@ -1,25 +1,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombBlock : MonoBehaviour, ITile
+public class DiscoBall : MonoBehaviour, ITile
 {
-    [SerializeField] private ExtrasSpriteHolder extrasSpriteHolder;
+    [SerializeField] private ExtrasSpriteHolder extraSpriteHolder;
 
     public TileBlock TileBlock { get; private set; }
     public SpriteRenderer SpriteRenderer { get; private set; }
     public Transform TileTransform { get; private set; }
+    public TileType SearchTileType { get;  set; }
 
     private TileGridLayout _tileGridLayout;
     private GameManager _gameManager;
+
 
     private void Awake()
     {
         _gameManager = GameManager.Instance;
         _tileGridLayout = TileGridLayout.Instance;
+
         SpriteRenderer = GetComponent<SpriteRenderer>();
         TileTransform = transform;
-        TileBlock = new ExtraBlockTile(SpriteRenderer, extrasSpriteHolder.BombSprite, gameObject,
-            new Vector2Int((int)transform.position.x, (int)transform.position.y));
+    }
+
+    public void CreateNewDiscoTileBlock()
+    {
+        TileBlock = new DiscoBallBlockTile(SpriteRenderer, extraSpriteHolder.DiscoBallDefault, gameObject, SearchTileType,
+            extraSpriteHolder, new Vector2Int((int)transform.position.x,(int)transform.position.y));
+        
+        TileBlock.Initialize();
     }
 
     public void SetGridPosition(int x, int y, bool playPositioningAnimation = false)
@@ -41,45 +50,36 @@ public class BombBlock : MonoBehaviour, ITile
     {
         if (_gameManager.SpawnerStates == SpawnerStates.Playable)
         {
-            Explosion();
+            FindAndDestroy();
+            _tileGridLayout.RefillTileGrid();
         }
     }
 
-    private void Explosion()
-    {
-        DestroyTiles();
-        _tileGridLayout.RefillTileGrid();
-    }
-
-    private void DestroyTiles()
+    private void FindAndDestroy()
     {
         var grid = _tileGridLayout.Grid;
-        var actionHappened = false;
-
-        for (var x = TileBlock.GridPosition.x - 1; x <= TileBlock.GridPosition.x + 1; x++)
+        
+        for (var x = 0; x < grid.GetLength(0); x++)
         {
-            for (var y = TileBlock.GridPosition.y - 1; y <= TileBlock.GridPosition.y + 1; y++)
+            for (var y = 0; y < grid.GetLength(1); y++)
             {
-                if(x == TileBlock.GridPosition.x && y == TileBlock.GridPosition.y) continue;
-                if (x >= 0 && y >= 0 && grid.GetLength(0) > x && grid.GetLength(1) > y && grid[x, y] != null)
+                if(TileBlock.GridPosition == new Vector2Int(x,y)) continue;
+                
+                if (grid[x,y].TileBlock.TileType == SearchTileType)
                 {
-                    _tileGridLayout.Grid[x, y].Interact();
-                    actionHappened = true;
+                    grid[x, y].Interact();
                 }
             }
         }
 
-        if (actionHappened)
-            EventManager.UpdateAllTileSprites?.Invoke();
-        
         _tileGridLayout.SetGridNull(TileBlock.GridPosition);
+        _tileGridLayout.RefillTileGrid();
         Destroy(gameObject);
 
     }
 
-
     public void Interact()
     {
-        Explosion();
+        FindAndDestroy();
     }
 }

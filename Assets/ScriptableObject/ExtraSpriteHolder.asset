@@ -10,7 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4dca21b84f8e2094384d87e978975234, type: 3}
-  m_Name: ExtrasSpriteHolder
+  m_Name: ExtraSpriteHolder
   m_EditorClassIdentifier: 
   rocketSprite: {fileID: 21300000, guid: 4e8a9388a6980154e902e3fe07829217, type: 3}
   bombSprite: {fileID: 21300000, guid: e5cc396b47cd8f9479e8b7ff27371d4d, type: 3}
+  discoBallDefault: {fileID: 21300000, guid: c753522eed858434cbe38efae1bba1bb, type: 3}
+  Blue: {r: 0.25882354, g: 0.7803922, b: 0.89019614, a: 1}
+  Green: {r: 0.73333335, g: 0.882353, b: 0.16078432, a: 1}
+  Pink: {r: 1, g: 0.46274513, b: 0.9686275, a: 1}
+  Purple: {r: 0.6862745, g: 0.09411766, b: 1, a: 1}
+  Red: {r: 0.9607844, g: 0.23529413, b: 0.16078432, a: 1}
+  Yellow: {r: 1, g: 0.8352942, b: 0, a: 1}
