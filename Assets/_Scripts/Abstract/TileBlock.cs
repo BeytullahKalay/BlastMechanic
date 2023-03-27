@@ -6,7 +6,7 @@ public abstract class TileBlock
 {
     public Vector2Int GridPosition;
 
-    protected SpriteRenderer _spriteRenderer;
+    protected SpriteRenderer SpriteRenderer;
     public GameObject TileGameObject;
 
     public TileType TileType { get; protected set; }
@@ -17,7 +17,7 @@ public abstract class TileBlock
     public void SetGridPosition(int x, int y, bool playAnimation)
     {
         GridPosition = new Vector2Int(x, y);
-        _spriteRenderer.sortingOrder = y;
+        SpriteRenderer.sortingOrder = y;
         TileGameObject.name = $"({GridPosition.x},{GridPosition.y})";
 
         var obj = TileGameObject; // defined for dotween unexpected this object error.

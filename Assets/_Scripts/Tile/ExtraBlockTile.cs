@@ -8,7 +8,7 @@ public class ExtraBlockTile : TileBlock
         Vector2Int gridPosition = default,TileType tileType = TileType.Extra)
     {
         GridPosition = gridPosition;
-        _spriteRenderer = spriteRenderer;
+        SpriteRenderer = spriteRenderer;
         TileGameObject = gameTileGameObject;
         _tileSprite = tileSprite;
         TileType = tileType;
@@ -18,7 +18,7 @@ public class ExtraBlockTile : TileBlock
 
     public override void Initialize()
     {
-        _spriteRenderer.sprite = _tileSprite;
-        _spriteRenderer.sortingOrder = GridPosition.y;
+        SpriteRenderer.sprite = _tileSprite;
+        SpriteRenderer.sortingOrder = GridPosition.y;
     }
 }

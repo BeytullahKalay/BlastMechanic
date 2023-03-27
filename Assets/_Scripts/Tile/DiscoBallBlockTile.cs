@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class DiscoBallBlockTile : TileBlock
 {
-    public TileType TileType { get; }
-
+    private TileType _tileType;
     private Sprite _tileSprite;
     private ExtrasSpriteHolder _extraSpriteHolder;
 
@@ -13,24 +12,24 @@ public class DiscoBallBlockTile : TileBlock
         Vector2Int gridPosition = default)
     {
         GridPosition = gridPosition;
-        _spriteRenderer = spriteRenderer;
+        SpriteRenderer = spriteRenderer;
         TileGameObject = gameTileGameObject;
         _tileSprite = tileSprite;
-        TileType = tileType;
+        _tileType = tileType;
         _extraSpriteHolder = extraSpriteHolder;
     }
 
     public override void Initialize()
     {
-        _spriteRenderer.sprite = _tileSprite;
-        _spriteRenderer.sortingOrder = GridPosition.y;
+        SpriteRenderer.sprite = _tileSprite;
+        SpriteRenderer.sortingOrder = GridPosition.y;
         var c = SetSpriteRendererMaterialColor();
-        _spriteRenderer.color = c;
+        SpriteRenderer.color = c;
     }
 
     private Color SetSpriteRendererMaterialColor()
     {
-        switch (TileType)
+        switch (_tileType)
         {
             case TileType.Red:
                 return _extraSpriteHolder.Red;
@@ -45,7 +44,7 @@ public class DiscoBallBlockTile : TileBlock
             case TileType.Blue:
                 return _extraSpriteHolder.Blue;
             default:
-                return _spriteRenderer.material.color = Color.white;
+                return SpriteRenderer.material.color = Color.white;
         }
     }
 }

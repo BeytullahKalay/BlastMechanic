@@ -19,13 +19,5 @@ public class ExtrasSpriteHolder : ScriptableObject
     public Sprite RocketSprite => rocketSprite;
     public Sprite BombSprite => bombSprite;
     public Sprite DiscoBallDefault => discoBallDefault;
-
     
-    // public Color Blue => blue;
-    // public Color Green => green;
-    // public Color Pink => pink;
-    // public Color Purple => purple;
-    // public Color Red => red;
-    // public Color Yellow => yellow;
-
 }

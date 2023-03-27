@@ -9,7 +9,7 @@ public class ClassicBlockTile : TileBlock
          Vector2Int gridPosition = default)
     {
         GridPosition = gridPosition;
-        _spriteRenderer = spriteRenderer;
+        SpriteRenderer = spriteRenderer;
         TileGameObject = gameTileGameObject;
         _classicBlockSpriteHolder = classicBlockSpriteHolder;
         TileType = TileType.Blue;
@@ -22,8 +22,8 @@ public class ClassicBlockTile : TileBlock
         Tween?.Kill();
         var tileSprite = _classicBlockSpriteHolder.GetRandomTileSprites();
         TileType = tileSprite.TileType;
-        _spriteRenderer.sprite = tileSprite.DefaultSprite;
-        _spriteRenderer.sortingOrder = GridPosition.y;
+        SpriteRenderer.sprite = tileSprite.DefaultSprite;
+        SpriteRenderer.sortingOrder = GridPosition.y;
         TileGameObject.name = $"({GridPosition.x},{GridPosition.y})";
     }
 }
