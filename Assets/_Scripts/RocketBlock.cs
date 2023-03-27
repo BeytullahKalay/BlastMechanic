@@ -74,9 +74,10 @@ public class RocketBlock : MonoBehaviour, ITile
         gameObject.SetActive(false);
         _tileGridLayout.SetGridNull(TileBlock.GridPosition);
 
+        var transf = transform;
 
-        var obj1 = Instantiate(fuseObject, transform.position, transform.rotation);
-        var obj2 = Instantiate(fuseObject, transform.position, transform.rotation * Quaternion.Euler(0, 0, 180));
+        var obj1 = Instantiate(fuseObject, transf.position, transf.rotation);
+        var obj2 = Instantiate(fuseObject, transf.position, transf.rotation * Quaternion.Euler(0, 0, 180));
 
         var tasks = new Task[2];
         tasks[0] = obj1.GetComponent<Fuse>().CheckIsPassedBorders();
