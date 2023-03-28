@@ -1,0 +1,6 @@
+# Blast Mechanic
+Blast mechanic
+## Game Link
+You can easily download the game from [My Itch.io](https://beytullahkalay1.itch.io/)
+
+![Original Game Image](img.jpg)
