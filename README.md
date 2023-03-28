@@ -6,8 +6,8 @@ You can easily download the game from [My Itch.io](https://beytullahkalay1.itch.
 ![Original Game Image](img.png)
 
 ## In Game GIFs
-![Start](\GIFs\start.gif)
+![Start](/GIFs/start.gif)
 
-![Start](\GIFs\explosion.gif)
+![Start](/GIFs/explosion.gif)
 
-![Start](\GIFs\shuffle.gif)
+![Start](/GIFs/shuffle.gif)
